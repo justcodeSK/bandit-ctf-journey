@@ -9,6 +9,7 @@ Connect to the Bandit server using SSH and obtain access to the first level.
 ```bash
 ssh bandit0@bandit.labs.overthewire.org -p 2220
 ```
+- Either Server Host name 'bandit.labs.overthewire.org' or ipaddress
 
 **Username:**
 

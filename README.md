@@ -98,9 +98,6 @@ These writeups are intended **solely for educational purposes**. Please avoid us
 ## Resources
 
 - OverTheWire Bandit: https://overthewire.org/wargames/bandit/
-- Linux Manual Pages: https://man7.org/linux/man-pages/
-- ExplainShell: https://explainshell.com/
-
 ---
 
 Happy Hacking! 🚀

@@ -27,10 +27,10 @@ The output reveals the hidden file.
 Read its contents using:
 
 ```bash
-cat .<hidden_filename>
+cat ..file_name
 ```
 
-Replace `<hidden_filename>` with the actual filename displayed by `ls -a`.
+Replace `..file_name` with the actual filename displayed by `ls -a`.
 
 This displays the password for the next level.
 
@@ -39,8 +39,9 @@ This displays the password for the next level.
 ```bash
 cd inhere
 ls -a
-cat .<hidden_filename>
+cat ...file_name
 ```
+- Type `cd` and click `TAB` for auto fill the folder names or file names
 
 ## Concepts Learned
 

@@ -2,85 +2,72 @@
 
 ## Objective
 
-Retrieve the password for **Level 7**. The password is stored somewhere on the server with the following properties:
+Retrieve the password for **Level 7**. The password is stored **somewhere on the server** and has the following properties:
 
-- Owned by user **bandit7**
-- Owned by group **bandit6**
+- Owned by user `bandit7`
+- Owned by group `bandit6`
 - Exactly **33 bytes** in size
 
 ## Challenge
 
-Unlike previous levels, the password file is **not located in the current directory**. Instead, it is hidden somewhere on the server. Manually searching the filesystem would be impractical, so the `find` command is used to locate the file based on its properties.
+Unlike previous levels, the file is not located in the current directory. Instead, it can be anywhere on the server, so searching manually would be impractical.
 
 ## Solution
 
-Search the entire filesystem for a file that matches all the given conditions:
+Use the `find` command to search the entire filesystem while filtering by the required properties.
 
 ```bash
 find / -type f -user bandit7 -group bandit6 -size 33c 2>/dev/null
 ```
 
-The command returns:
+### Command Breakdown
 
-```text
-/var/lib/dpkg/info/bandit7.password
-```
+| Option | Description |
+|--------|-------------|
+| `/` | Start searching from the root directory |
+| `-type f` | Search only regular files |
+| `-user bandit7` | File must be owned by user `bandit7` |
+| `-group bandit6` | File must belong to group `bandit6` |
+| `-size 33c` | File size must be exactly 33 bytes |
+| `2>/dev/null` | Suppress permission denied error messages |
 
-Read the contents of the file:
+The command returns the location of the password file.
+
+## Reading the Password
+
+Attempting to read the file using:
 
 ```bash
-cat /var/lib/dpkg/info/bandit7.password
+cat <file_path>
 ```
 
-This displays the password for the next level.
+resulted in a **Permission denied** error.
+
+Instead, I opened the file using:
+
+```bash
+nano <file_path>
+```
+
+which allowed me to view the password.
+
+> **Note:** The official Bandit solution typically allows the file to be read with `cat`. If `cat` returns **Permission denied**, double-check that the path returned by `find` is correct and that you're logged into the expected Bandit level. In my session, I used `nano` to view the file contents.
 
 ## Commands Used
 
 ```bash
 find / -type f -user bandit7 -group bandit6 -size 33c 2>/dev/null
-cat /var/lib/dpkg/info/bandit7.password
+nano <file_path>
 ```
-
-## Command Breakdown
-
-### `find`
-
-Searches for files and directories.
-
-### `/`
-
-Starts the search from the root directory, scanning the entire filesystem.
-
-### `-type f`
-
-Searches only for regular files.
-
-### `-user bandit7`
-
-Filters files owned by the user **bandit7**.
-
-### `-group bandit6`
-
-Filters files belonging to the group **bandit6**.
-
-### `-size 33c`
-
-Matches files that are exactly **33 bytes** in size.
-
-> **Note:** The `c` stands for **bytes**.
-
-### `2>/dev/null`
-
-Redirects error messages (such as **Permission denied**) to `/dev/null`, keeping the output clean.
 
 ## Concepts Learned
 
-- Searching the entire filesystem using `find`
-- Filtering files by owner (`-user`)
-- Filtering files by group (`-group`)
-- Searching by exact file size (`-size`)
-- Redirecting standard error using `2>/dev/null`
+- Searching the entire filesystem with `find`
+- Filtering by owner, group, and file size
+- Redirecting error messages using `2>/dev/null`
+- Understanding Linux file permissions
+- Viewing files with `nano`
 
 ## Key Takeaway
 
-The `find` command allows you to locate files efficiently by combining multiple search criteria such as owner, group, and file size. Redirecting error messages with `2>/dev/null` helps produce clean output when searching directories with restricted permissions.
+The `find` command can combine multiple filters to quickly locate a specific file, even on a large filesystem. Redirecting errors to `/dev/null` keeps the output clean by hiding permission-related messages. If access to a file is denied, verify that you've found the correct file and that you're using the appropriate permissions.

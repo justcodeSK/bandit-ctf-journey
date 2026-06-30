@@ -21,6 +21,13 @@ List all files, including hidden ones:
 ```bash
 ls -a
 ```
+or 
+```
+ls -ahl
+```
+- a : Includes hidden files and folders in the output (beginning with a dot ., such as .bashrc or .git)
+- h : Converts file sizes from raw bytes into easy-to-read formats like Kilobytes (K), Megabytes (M), or Gigabytes (G)
+- l : : Displays permissions, ownership, exact file size, and the last modification date instead of just file names.
 
 The output reveals the hidden file.
 

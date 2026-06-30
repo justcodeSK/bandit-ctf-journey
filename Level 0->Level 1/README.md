@@ -1,43 +1,47 @@
-# Level 0
+# Level 1
 
 ## Objective
 
-Connect to the Bandit server using SSH and obtain access to the first level.
+Find the password for **Level 2** stored in a file within the current working directory.
 
-## Connection Details
+## Steps
+
+First, check the current working directory.
 
 ```bash
-ssh bandit0@bandit.labs.overthewire.org -p 2220
-```
-- Either Server Host name 'bandit.labs.overthewire.org' or ipaddress
-
-**Username:**
-
-```text
-bandit0
+pwd
 ```
 
-**Password:**
+Then list the files present in the directory.
 
-```text
-bandit0
+```bash
+ls
 ```
 
-After entering the password, you will successfully log in to the Bandit server.
+A file named `readme` is displayed.
+
+Read its contents using:
+
+```bash
+cat readme
+```
+
+The output contains the password required for the next level.
 
 ## Commands Used
 
 ```bash
-ssh bandit0@bandit.labs.overthewire.org -p 2220
+pwd
+ls
+cat readme
 ```
 
 ## Concepts Learned
 
-- What SSH is
-- Connecting to a remote Linux server
-- Logging in using a username and password
-- Specifying a custom SSH port using `-p`
+- `pwd` – Displays the current working directory.
+- `ls` – Lists files and directories.
+- `cat` – Displays the contents of a file.
 
 ## Key Takeaway
 
-SSH (Secure Shell) is a secure protocol used to remotely access Linux systems. Throughout the Bandit wargame, SSH is used to connect to each new level using the password obtained from the previous challenge.
+This level introduces basic Linux navigation and file reading. Before searching for files, it's helpful to know your current location (`pwd`) and inspect the directory contents (`ls`).

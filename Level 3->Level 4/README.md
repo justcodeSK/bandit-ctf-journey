@@ -1,57 +1,62 @@
-# Level 3
+# Level 4
 
 ## Objective
 
-Retrieve the password for **Level 4** from a file named:
-
-```text
---spaces in this filename--
-```
-
-located in the home directory.
+Retrieve the password for **Level 5**. The password is stored in a **hidden file** inside the `inhere` directory.
 
 ## Challenge
 
-The filename contains spaces, so entering it without quotes causes the shell to treat each word as a separate argument.
+By default, the `ls` command does not display hidden files. Hidden files and directories in Linux begin with a dot (`.`).
 
 ## Solution
 
-List the files in the current directory:
+First, move into the `inhere` directory:
 
 ```bash
-ls
+cd inhere
 ```
 
-Read the file by enclosing the filename in double quotes:
+List all files, including hidden ones:
 
 ```bash
-cat ./"--spaces in this filename--"
+ls -a
 ```
+or 
+```
+ls -ahl
+```
+- a : Includes hidden files and folders in the output (beginning with a dot ., such as .bashrc or .git)
+- h : Converts file sizes from raw bytes into easy-to-read formats like Kilobytes (K), Megabytes (M), or Gigabytes (G)
+- l : : Displays permissions, ownership, exact file size, and the last modification date instead of just file names.
+
+The output reveals the hidden file.
+
+Read its contents using:
+
+```bash
+cat ..file_name
+```
+
+Replace `..file_name` with the actual filename displayed by `ls -a`.
 
 This displays the password for the next level.
 
 ## Commands Used
 
 ```bash
-ls
-cat ./"--spaces in this filename--"
+cd inhere
+ls -a
+cat ...file_name
 ```
-
-## Alternative Solution
-
-Instead of using quotes, you can escape each space with a backslash (`\`):
-
-```bash
-cat ./--spaces\ in\ this\ filename--
-```
+- Type `cd` and click `TAB` for auto fill the folder names or file names
 
 ## Concepts Learned
 
-- Handling filenames containing spaces
-- Using quotes (`""`) to treat a filename as a single argument
-- Using the `./` prefix to specify a file in the current directory
-- Escaping spaces with the backslash (`\`) character
+- Navigating directories with `cd`
+- Viewing hidden files using `ls -a`
+- Understanding that hidden files start with a dot (`.`)
+- Reading file contents using `cat`
 
 ## Key Takeaway
 
-When a filename contains spaces, the shell splits it into separate arguments. Enclosing the filename in quotes or escaping each space ensures it is interpreted as a single filename.
+The `ls` command hides files beginning with a dot (`.`) by default. Using the `-a` option displays all files, including hidden ones, allowing you to locate and access hidden data.

@@ -1,42 +1,32 @@
-# Level 2
+# Level 3
 
 ## Objective
 
-Retrieve the password for **Level 3** from a file whose name begins with a hyphen (`-`).
+Retrieve the password for **Level 4** from a file named:
+
+```text
+--spaces in this filename--
+```
+
+located in the home directory.
 
 ## Challenge
 
-Listing the files reveals a file named `-`.
+The filename contains spaces, so entering it without quotes causes the shell to treat each word as a separate argument.
+
+## Solution
+
+List the files in the current directory:
 
 ```bash
 ls
 ```
 
-Trying to read it directly:
+Read the file by enclosing the filename in double quotes:
 
 ```bash
-cat -
+cat ./"--spaces in this filename--"
 ```
-
-does not work because the hyphen (`-`) is interpreted as an option (or standard input) rather than a filename.
-
-## Solution
-
-The file is named `-`, which Linux may interpret as an option rather than a filename.
-
-One way to read it is by specifying its path relative to the current directory:
-
-```bash
-cat ./-
-```
-
-Since the file is also located in the home directory, it can alternatively be accessed using:
-
-```bash
-cat ~/-
-```
-
-Both commands treat `-` as part of the file path instead of as a command option.
 
 This displays the password for the next level.
 
@@ -44,39 +34,24 @@ This displays the password for the next level.
 
 ```bash
 ls
-cat ./-
+cat ./"--spaces in this filename--"
 ```
 
-## Understanding Filenames Starting with `-`
+## Alternative Solution
 
-In Linux, filenames beginning with a hyphen (`-`) can be mistaken for command-line options. There are two common ways to work with such files.
-
-### 1. Use the current directory prefix (`./`)
-
-This tells the command that the argument is a file path.
+Instead of using quotes, you can escape each space with a backslash (`\`):
 
 ```bash
-cat ./-filename
-touch ./-filename
-```
-
-### 2. Use the `--` option terminator
-
-The double dash (`--`) tells the command that everything following it should be treated as an argument, not an option.
-
-```bash
-rm -- -filename
-touch -- -filename
-cat -- -filename
+cat ./--spaces\ in\ this\ filename--
 ```
 
 ## Concepts Learned
 
-- Handling filenames that begin with `-`
-- Using `./` to reference files in the current directory
-- Using `--` to stop option parsing
-- Understanding how Linux commands interpret command-line arguments
+- Handling filenames containing spaces
+- Using quotes (`""`) to treat a filename as a single argument
+- Using the `./` prefix to specify a file in the current directory
+- Escaping spaces with the backslash (`\`) character
 
 ## Key Takeaway
 
-Linux commands treat filenames beginning with `-` as command options. To access these files safely, either prepend the filename with `./` or use the `--` option terminator.
+When a filename contains spaces, the shell splits it into separate arguments. Enclosing the filename in quotes or escaping each space ensures it is interpreted as a single filename.

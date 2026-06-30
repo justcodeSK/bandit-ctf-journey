@@ -2,66 +2,61 @@
 
 ## Objective
 
-Retrieve the password for **Level 6**. The password is stored in the **only human-readable file** inside the `inhere` directory.
+Retrieve the password for **Level 6**. The password is stored in a file somewhere under the `inhere` directory with the following properties:
 
-## Challenge
-
-The `inhere` directory contains several files with similar names. Only one of them contains readable text, while the others contain binary data.
+- Human-readable
+- Exactly **1033 bytes** in size
+- Not executable
 
 ## Solution
 
-Navigate to the `inhere` directory:
+Instead of manually searching through every directory, use the `find` command to locate the file based on its properties.
 
 ```bash
-cd inhere
+find inhere -type f -size 1033c ! -executable
 ```
 
-List the files:
+The command returns the path to the matching file.
+
+```text
+inhere/maybehere07/.file2
+```
+
+Read the file to obtain the password:
 
 ```bash
-ls -a
-ls -hl
+cat inhere/maybehere07/.file2
 ```
-
-I manually checked the files using the `cat` command until I found the human-readable file.
-
-```bash
-cat ./-file07
-```
-
-This displayed the password for the next level.
 
 ## Commands Used
 
 ```bash
-cd inhere
-ls -a
-ls -hl
-cat ./-file07
+find inhere -type f -size 1033c ! -executable
+cat inhere/maybehere07/.file2
 ```
 
-## Better Approach
-
-A more efficient solution is to use the `file` command to identify the human-readable file.
+## Understanding the `find` Command
 
 ```bash
-file ./*
+find inhere -type f -size 1033c ! -executable
 ```
 
-The output indicates the file that contains **ASCII text**, which can then be read using:
-
-```bash
-cat ./-file07
-```
+| Option | Description |
+|--------|-------------|
+| `find` | Searches for files and directories. |
+| `inhere` | Directory where the search begins. |
+| `-type f` | Search only for regular files. |
+| `-size 1033c` | Match files that are exactly **1033 bytes** (`c` = bytes). |
+| `! -executable` | Exclude executable files. |
 
 ## Concepts Learned
 
-- Listing files with `ls`
-- Viewing file sizes using `ls -hl`
-- Reading file contents with `cat`
-- Identifying file types using the `file` command
-- Understanding the difference between text and binary files
+- Using `find` to search for files.
+- Filtering by file type with `-type`.
+- Filtering by exact file size using `-size`.
+- Excluding executable files with `! -executable`.
+- Reading file contents with `cat`.
 
 ## Key Takeaway
 
-While it is possible to inspect files manually using `cat`, the `file` command is a faster and more reliable way to determine whether a file contains human-readable text or binary data.
+The `find` command allows you to efficiently locate files based on multiple conditions, such as file type, size, and permissions. Combining these filters makes it much easier to find a specific file without manually browsing through directories.

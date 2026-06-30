@@ -1,47 +1,82 @@
-# Level 1
+# Level 2
 
 ## Objective
 
-Find the password for **Level 2** stored in a file within the current working directory.
+Retrieve the password for **Level 3** from a file whose name begins with a hyphen (`-`).
 
-## Steps
+## Challenge
 
-First, check the current working directory.
-
-```bash
-pwd
-```
-
-Then list the files present in the directory.
+Listing the files reveals a file named `-`.
 
 ```bash
 ls
 ```
 
-A file named `readme` is displayed.
-
-Read its contents using:
+Trying to read it directly:
 
 ```bash
-cat readme
+cat -
 ```
 
-The output contains the password required for the next level.
+does not work because the hyphen (`-`) is interpreted as an option (or standard input) rather than a filename.
+
+## Solution
+
+The file is named `-`, which Linux may interpret as an option rather than a filename.
+
+One way to read it is by specifying its path relative to the current directory:
+
+```bash
+cat ./-
+```
+
+Since the file is also located in the home directory, it can alternatively be accessed using:
+
+```bash
+cat ~/-
+```
+
+Both commands treat `-` as part of the file path instead of as a command option.
+
+This displays the password for the next level.
 
 ## Commands Used
 
 ```bash
-pwd
 ls
-cat readme
+cat ./-
+```
+
+## Understanding Filenames Starting with `-`
+
+In Linux, filenames beginning with a hyphen (`-`) can be mistaken for command-line options. There are two common ways to work with such files.
+
+### 1. Use the current directory prefix (`./`)
+
+This tells the command that the argument is a file path.
+
+```bash
+cat ./-filename
+touch ./-filename
+```
+
+### 2. Use the `--` option terminator
+
+The double dash (`--`) tells the command that everything following it should be treated as an argument, not an option.
+
+```bash
+rm -- -filename
+touch -- -filename
+cat -- -filename
 ```
 
 ## Concepts Learned
 
-- `pwd` – Displays the current working directory.
-- `ls` – Lists files and directories.
-- `cat` – Displays the contents of a file.
+- Handling filenames that begin with `-`
+- Using `./` to reference files in the current directory
+- Using `--` to stop option parsing
+- Understanding how Linux commands interpret command-line arguments
 
 ## Key Takeaway
 
-This level introduces basic Linux navigation and file reading. Before searching for files, it's helpful to know your current location (`pwd`) and inspect the directory contents (`ls`).
+Linux commands treat filenames beginning with `-` as command options. To access these files safely, either prepend the filename with `./` or use the `--` option terminator.
